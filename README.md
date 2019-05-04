@@ -28,6 +28,10 @@ require 'loog'
 Loog::VERBOSE.info('Hello, world!')
 ```
 
+The gem is basically a provider of a few pre-configured loggers, which
+you can use for production (`Loog::REGULAR`) or for testing (`Loog::VERBOSE`).
+You can also shut it up with `Loog::NULL`.
+
 That's it.
 
 ## How to contribute
