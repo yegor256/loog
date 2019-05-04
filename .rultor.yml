@@ -9,12 +9,12 @@ install: |
 release:
   script: |-
     bundle install
-    rake
+    bundle exec rake
     rm -rf *.gem
-    sed -i "s/1\.0\.snapshot/${tag}/g" lib/sibit/version.rb
-    git add lib/sibit/version.rb
+    sed -i "s/0\.0\.0/${tag}/g" loog.gemspec
+    git add loog.gemspec
     git commit -m "version set to ${tag}"
-    gem build sibit.gemspec
+    gem build loog.gemspec
     chmod 0600 ../rubygems.yml
     gem push *.gem --config-file ../rubygems.yml
   commanders:
@@ -24,7 +24,7 @@ architect:
 merge:
   script: |-
     bundle install
-    rake
+    bundle exec rake
     pdd
 deploy:
   script: |-

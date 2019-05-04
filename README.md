@@ -13,7 +13,8 @@
 [![Test Coverage](https://img.shields.io/codecov/c/github/yegor256/loog.svg)](https://codecov.io/github/yegor256/loog?branch=master)
 [![Hits-of-Code](https://hitsofcode.com/github/yegor256/loog)](https://hitsofcode.com/view/github/yegor256/loog)
 
-Loog is an object-oriented logging wrapper around Ruby logger.
+Loog is an object-oriented logging wrapper around Ruby
+[`Logger`](https://ruby-doc.org/stdlib-2.4.0/libdoc/logger/rdoc/Logger.html).
 
 First, install it:
 
