@@ -1,17 +1,20 @@
 assets:
   rubygems.yml: zerocracy/home#assets/rubygems.yml
-install: |-
+  s3cfg: zerocracy/home#assets/s3cfg
+install: |
   export GEM_HOME=~/.ruby
   export GEM_PATH=$GEM_HOME:$GEM_PATH
+  sudo apt-get -y update
+  sudo gem install pdd
 release:
   script: |-
     bundle install
     rake
     rm -rf *.gem
-    sed -i "s/0\.0\.0/${tag}/g" loog.gemspec
-    git add loog.gemspec
-    git commit -m "Version set to ${tag}"
-    gem build loog.gemspec
+    sed -i "s/1\.0\.snapshot/${tag}/g" lib/sibit/version.rb
+    git add lib/sibit/version.rb
+    git commit -m "version set to ${tag}"
+    gem build sibit.gemspec
     chmod 0600 ../rubygems.yml
     gem push *.gem --config-file ../rubygems.yml
   commanders:
@@ -19,8 +22,11 @@ release:
 architect:
 - yegor256
 merge:
-  commanders: []
   script: |-
     bundle install
-    bundle exec rake
-deploy: {}
+    rake
+    pdd
+deploy:
+  script: |-
+    echo "There is nothing to deploy"
+    exit -1

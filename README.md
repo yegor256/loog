@@ -7,7 +7,7 @@
 [![Build Status](https://travis-ci.org/yegor256/loog.svg)](https://travis-ci.org/yegor256/loog)
 [![Build status](https://ci.appveyor.com/api/projects/status/4wypa4uq4anp155x?svg=true)](https://ci.appveyor.com/project/yegor256/loog)
 [![Gem Version](https://badge.fury.io/rb/loog.svg)](http://badge.fury.io/rb/loog)
-[![Maintainability](https://api.codeclimate.com/v1/badges/5528e182bb5e4a2ecc1f/maintainability)](https://codeclimate.com/github/yegor256/loog/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/4346229c7af42b820e84/maintainability)](https://codeclimate.com/github/yegor256/loog/maintainability)
 [![Yard Docs](http://img.shields.io/badge/yard-docs-blue.svg)](http://rubydoc.info/github/yegor256/loog/master/frames)
 
 [![Test Coverage](https://img.shields.io/codecov/c/github/yegor256/loog.svg)](https://codecov.io/github/yegor256/loog?branch=master)
