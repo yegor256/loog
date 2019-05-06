@@ -18,3 +18,5 @@ Metrics/ParameterLists:
   Max: 10
 Layout/AlignParameters:
   Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
