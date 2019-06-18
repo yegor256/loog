@@ -87,3 +87,5 @@ module Loog
   ERRORS.formatter = COMPACT
   ERRORS.freeze
 end
+
+require_relative 'loog/tee'
