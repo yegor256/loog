@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = '2.3.3'
   s.required_ruby_version = '>=2.3'
   s.name = 'loog'
-  s.version = '0.0.0'
+  s.version = '0.2.1'
   s.license = 'MIT'
   s.summary = 'Object-oriented logging wrapper'
   s.description = 'Object-oriented wrapper for Ruby default logging facility'
