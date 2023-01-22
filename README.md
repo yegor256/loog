@@ -10,7 +10,6 @@
 [![Gem Version](https://badge.fury.io/rb/loog.svg)](http://badge.fury.io/rb/loog)
 [![Maintainability](https://api.codeclimate.com/v1/badges/4346229c7af42b820e84/maintainability)](https://codeclimate.com/github/yegor256/loog/maintainability)
 [![Yard Docs](http://img.shields.io/badge/yard-docs-blue.svg)](http://rubydoc.info/github/yegor256/loog/master/frames)
-
 [![Test Coverage](https://img.shields.io/codecov/c/github/yegor256/loog.svg)](https://codecov.io/github/yegor256/loog?branch=master)
 [![Hits-of-Code](https://hitsofcode.com/github/yegor256/loog)](https://hitsofcode.com/view/github/yegor256/loog)
 
