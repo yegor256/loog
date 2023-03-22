@@ -43,9 +43,9 @@ Gem::Specification.new do |s|
   s.rdoc_options = ['--charset=UTF-8']
   s.extra_rdoc_files = ['README.md']
   s.add_development_dependency 'codecov', '0.6.0'
-  s.add_development_dependency 'minitest', '5.11.3'
-  s.add_development_dependency 'rake', '12.0.0'
-  s.add_development_dependency 'rdoc', '4.3.0'
-  s.add_development_dependency 'rubocop', '0.62.0'
-  s.add_development_dependency 'rubocop-rspec', '1.31.0'
+  s.add_development_dependency 'minitest', '5.18.0'
+  s.add_development_dependency 'rake', '13.0.6'
+  s.add_development_dependency 'rdoc', '6.5.0'
+  s.add_development_dependency 'rubocop', '1.48.1'
+  s.add_development_dependency 'rubocop-rspec', '2.19.0'
 end
