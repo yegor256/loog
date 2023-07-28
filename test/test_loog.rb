@@ -39,9 +39,11 @@ class LoogTest < Minitest::Test
   end
 
   def test_buffering
-    b = Loog::Buffer.new
-    b.info('Hello, world!')
-    assert b.to_s.include?('Hello')
+    b = Loog::Buffer.new(formatter: Loog::FULL)
+    b.debug('Hello, world!')
+    stdout = b.to_s
+    assert(stdout.include?('Hello'))
+    assert(stdout.include?('DEBUG'))
   end
 
   def test_quiet_buffering
