@@ -92,12 +92,12 @@ module Loog
   # messages in one place and then "assert" the presence
   # of certain strings inside them.
   class Buffer < Logger
-    def initialize
+    def initialize(formatter: Loog::SHORT)
       super(
         $stdout,
         level: Logger::DEBUG,
         formatter: proc do |severity, time, target, msg|
-          @lines.push(Loog::SHORT.call(severity, time, target, msg))
+          @lines.push(formatter.call(severity, time, target, msg))
           ''
         end
       )
