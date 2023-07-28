@@ -48,8 +48,10 @@ class LoogTest < Minitest::Test
 
   def test_quiet_buffering
     b = Loog::Buffer.new
-    msg = 'Hey, друг!'
-    b.info(msg)
-    assert_equal(b.to_s, "#{msg}\n")
+    b.info('Hey, друг!')
+    b.info('Bye!')
+    b.info('+')
+    p b.to_s
+    assert_equal("Hey, друг!\nBye!\n+\n", b.to_s)
   end
 end
