@@ -87,7 +87,10 @@ module Loog
   ERRORS.formatter = COMPACT
   ERRORS.freeze
 
-  # Accumulator of everything
+  # Accumulator of everything. This class may be used
+  # for testing, when it's necessary to accumulate all log
+  # messages in one place and then "assert" the presence
+  # of certain strings inside them.
   class Buffer < Logger
     def initialize
       super(
