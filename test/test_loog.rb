@@ -37,4 +37,10 @@ class LoogTest < Minitest::Test
   def test_null_logging
     Loog::NULL.info('Should not be visible')
   end
+
+  def test_buffering
+    b = Loog::Buffer.new
+    b.info('Hello, world!')
+    assert b.to_s.include?('Hello')
+  end
 end

@@ -86,4 +86,23 @@ module Loog
   ERRORS.level = Logger::ERROR
   ERRORS.formatter = COMPACT
   ERRORS.freeze
+
+  # Accumulator of everything
+  class Buffer < Logger
+    def initialize
+      super(
+        $stdout,
+        level: Logger::DEBUG,
+        formatter: proc do |severity, time, target, msg|
+          @lines.push("#{severity} #{time} #{target} #{msg}")
+          ''
+        end
+      )
+      @lines = []
+    end
+
+    def to_s
+      @lines.join("\n")
+    end
+  end
 end
