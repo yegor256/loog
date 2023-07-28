@@ -46,7 +46,7 @@ module Loog
     when 'DEBUG'
       prefix = 'D: '
     end
-    "#{prefix}#{msg.to_s.rstrip.gsub(/\n/, "\n#{' ' * prefix.length}")}\n"
+    "#{prefix}#{msg.to_s.rstrip.gsub("\n", "\n#{' ' * prefix.length}")}\n"
   end
 
   # Short formatter
@@ -97,7 +97,7 @@ module Loog
         $stdout,
         level: Logger::DEBUG,
         formatter: proc do |severity, time, target, msg|
-          @lines.push("#{severity} #{time} #{target} #{msg}")
+          @lines.push(Loog::SHORT.call(severity, time, target, msg))
           ''
         end
       )
