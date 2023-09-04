@@ -31,7 +31,7 @@ The gem is basically a provider of a few pre-configured loggers, which
 you can use for production (`Loog::REGULAR`) or for testing (`Loog::VERBOSE`).
 You can also shut it up with `Loog::NULL`.
 
-There is also `Logger::Buffer` class that you can use for testing. 
+There is also `Loog::Buffer` class that you can use for testing. 
 It accumulates all log calls and then returns the entire output
 through the `to_s()` method.
 
