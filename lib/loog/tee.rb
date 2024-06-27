@@ -57,6 +57,14 @@ class Loog::Tee
     @logs.any? { |g| g.info?(msg) }
   end
 
+  def warn(msg)
+    @logs.each { |g| g.warn(msg) }
+  end
+
+  def warn?
+    @logs.any? { |g| g.warn?(msg) }
+  end
+
   def error(msg)
     @logs.each { |g| g.error(msg) }
   end

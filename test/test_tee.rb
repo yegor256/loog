@@ -32,6 +32,10 @@ require_relative '../lib/loog/tee'
 # License:: MIT
 class TeeTest < Minitest::Test
   def test_simple_logging
-    Loog::Tee.new(Loog::VERBOSE, Loog::REGULAR).info('Works?')
+    tee = Loog::Tee.new(Loog::VERBOSE, Loog::REGULAR)
+    tee.info('Works?')
+    tee.debug('Works?')
+    tee.warn('Works?')
+    tee.error('Works?')
   end
 end
