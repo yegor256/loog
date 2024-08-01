@@ -23,6 +23,7 @@
 # SOFTWARE.
 
 require 'logger'
+require 'time'
 
 # Loog is an object-oriented wrapper around Ruby Logger:
 #
@@ -105,7 +106,7 @@ module Loog
     end
 
     def to_s
-      @lines.join
+      @lines.map { |s| s.dup.force_encoding('UTF-8') }.join
     end
   end
 end

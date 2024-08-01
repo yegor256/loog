@@ -58,9 +58,11 @@ class LoogTest < Minitest::Test
   end
 
   def test_buffer_non_utf
-    b = Loog::Buffer.new(formatter: Loog::FULL)
-    b.debug('Hello, друг')
+    b = Loog::Buffer.new
+    msg = [0x41, 0x42, 0xC0].pack('c*')
+    b.debug('привет')
+    b.debug(msg)
     stdout = b.to_s
-    assert(stdout.include?('Hello'))
+    assert(stdout.include?('AB'), stdout)
   end
 end
