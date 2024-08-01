@@ -56,4 +56,11 @@ class LoogTest < Minitest::Test
     b.error('+')
     assert_equal("Hey, друг!\nBye!\n+\n", b.to_s)
   end
+
+  def test_buffer_non_utf
+    b = Loog::Buffer.new(formatter: Loog::FULL)
+    b.debug('Hello, друг')
+    stdout = b.to_s
+    assert(stdout.include?('Hello'))
+  end
 end
