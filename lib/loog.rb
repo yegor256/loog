@@ -93,10 +93,13 @@ module Loog
   # messages in one place and then "assert" the presence
   # of certain strings inside them.
   class Buffer < Logger
-    def initialize(formatter: Loog::SHORT)
+    # Ctor
+    # @param [String] level The level of logging
+    # @param [String] formatter The formatter
+    def initialize(level: Logger::DEBUG, formatter: Loog::SHORT)
       super(
         $stdout,
-        level: Logger::DEBUG,
+        level: level,
         formatter: proc do |severity, time, target, msg|
           @lines.push(formatter.call(severity, time, target, msg))
           ''
