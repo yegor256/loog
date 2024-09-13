@@ -27,6 +27,7 @@ require_relative '../loog'
 # A combiner of a few logs together:
 #
 #  require 'loog'
+#  require 'loog/tee'
 #  tee = Loog::Tee.new(Loog::VERBOSE, file_logger)
 #  log.info('Hello, world!')
 #

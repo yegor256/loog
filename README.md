@@ -35,6 +35,18 @@ There is also `Loog::Buffer` class that you can use for testing.
 It accumulates all log calls and then returns the entire output
 through the `to_s()` method.
 
+Also, you can "tee" two loogs, with the help of `Loog::Tee`. For example,
+to record everything in a buffer and also show in the console:
+
+```ruby
+require 'loog'
+require 'loog/tee'
+buf - Logger::Buffer.new
+loog = Loog::Tee.new(Loog::VERBOSE, buf)
+loog.info('Hello, world!')
+assert(buf.to_s.include?('Hello'))
+```
+
 ## How to contribute
 
 Read
