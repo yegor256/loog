@@ -23,7 +23,6 @@ AllCops:
   TargetRubyVersion: 2.3.3
   SuggestExtensions: false
   NewCops: enable
-
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
 Layout/MultilineMethodCallIndentation:
@@ -42,3 +41,7 @@ Layout/ParameterAlignment:
   Enabled: false
 Style/ClassAndModuleChildren:
   Enabled: false
+required:
+  - rubocop-rake
+  - rubocop-minitest
+  - rubocop-performance
