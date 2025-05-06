@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     loog (0.0.0)
+      logger (~> 1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -14,6 +15,7 @@ GEM
     json (2.11.3)
     language_server-protocol (3.17.0.4)
     lint_roller (1.1.0)
+    logger (1.7.0)
     minitest (5.25.5)
     minitest-reporters (1.7.1)
       ansi
