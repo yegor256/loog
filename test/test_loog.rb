@@ -46,4 +46,18 @@ class LoogTest < Minitest::Test
     stdout = b.to_s
     assert_includes(stdout, 'AB', stdout)
   end
+
+  def test_handles_invalid_utf8_without_exception
+    broken = "\xFF\xFE\x12"
+    Loog::VERBOSE.info(broken)
+    Loog::REGULAR.info(broken)
+    Loog::ERRORS.error(broken)
+    b = Loog::Buffer.new
+    b.info(broken)
+    output = b.to_s
+    assert_match(/\?+/, output)
+    b = Loog::Buffer.new(formatter: Loog::FULL)
+    b.info(broken)
+    assert_match(/\?+/, b.to_s)
+  end
 end

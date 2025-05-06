@@ -28,21 +28,24 @@ module Loog
     when 'DEBUG'
       prefix = 'D: '
     end
-    "#{prefix}#{msg.to_s.rstrip.gsub("\n", "\n#{' ' * prefix.length}")}\n"
+    message = msg.to_s.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
+    "#{prefix}#{message.rstrip.gsub("\n", "\n#{' ' * prefix.length}")}\n"
   end
 
   # Short formatter
   SHORT = proc do |_severity, _time, _target, msg|
-    "#{msg.to_s.rstrip}\n"
+    message = msg.to_s.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
+    "#{message.rstrip}\n"
   end
 
   # Full formatter
   FULL = proc do |severity, time, _target, msg|
+    message = msg.to_s.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
     format(
       "%<time>s %<severity>5s %<msg>s\n",
       time: time.utc.iso8601,
       severity: severity,
-      msg: msg.to_s.rstrip
+      msg: message.rstrip
     )
   end
 
@@ -90,7 +93,7 @@ module Loog
     end
 
     def to_s
-      @lines.map { |s| s.dup.force_encoding('UTF-8') }.join
+      @lines.map { |s| s.dup.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?') }.join
     end
   end
 end
