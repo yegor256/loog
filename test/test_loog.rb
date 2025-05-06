@@ -26,8 +26,8 @@ class LoogTest < Minitest::Test
     b.warn('Hello, world!')
     b.error('Hello, world!')
     stdout = b.to_s
-    assert(stdout.include?('Hello'))
-    assert(stdout.include?('DEBUG'))
+    assert_includes(stdout, 'Hello')
+    assert_includes(stdout, 'DEBUG')
   end
 
   def test_quiet_buffering
@@ -44,6 +44,6 @@ class LoogTest < Minitest::Test
     b.debug('привет')
     b.debug(msg)
     stdout = b.to_s
-    assert(stdout.include?('AB'), stdout)
+    assert_includes(stdout, 'AB', stdout)
   end
 end

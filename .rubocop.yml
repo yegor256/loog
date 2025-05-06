@@ -6,6 +6,12 @@ AllCops:
   TargetRubyVersion: 2.3.3
   SuggestExtensions: false
   NewCops: enable
+plugins:
+  - rubocop-rake
+  - rubocop-minitest
+  - rubocop-performance
+Minitest/EmptyLineBeforeAssertionMethods:
+  Enabled: false
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
 Layout/MultilineMethodCallIndentation:
@@ -24,7 +30,3 @@ Layout/ParameterAlignment:
   Enabled: false
 Style/ClassAndModuleChildren:
   Enabled: false
-require:
-  - rubocop-rake
-  - rubocop-minitest
-  - rubocop-performance
