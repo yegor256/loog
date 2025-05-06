@@ -41,7 +41,7 @@ to record everything in a buffer and also show in the console:
 ```ruby
 require 'loog'
 require 'loog/tee'
-buf - Logger::Buffer.new
+buf = Loog::Buffer.new
 loog = Loog::Tee.new(Loog::VERBOSE, buf)
 loog.info('Hello, world!')
 assert(buf.to_s.include?('Hello'))

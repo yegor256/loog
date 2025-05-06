@@ -10,7 +10,7 @@ require_relative '../loog'
 #  require 'loog'
 #  require 'loog/tee'
 #  tee = Loog::Tee.new(Loog::VERBOSE, file_logger)
-#  log.info('Hello, world!')
+#  tee.info('Hello, world!')
 #
 # This way you can log to console and to the file at the same time.
 #
@@ -28,7 +28,7 @@ class Loog::Tee
   end
 
   def debug?
-    @logs.any? { |g| g.debug?(msg) }
+    @logs.any?(&:debug?)
   end
 
   def info(msg)
@@ -36,7 +36,7 @@ class Loog::Tee
   end
 
   def info?
-    @logs.any? { |g| g.info?(msg) }
+    @logs.any?(&:info?)
   end
 
   def warn(msg)
@@ -44,10 +44,14 @@ class Loog::Tee
   end
 
   def warn?
-    @logs.any? { |g| g.warn?(msg) }
+    @logs.any?(&:warn?)
   end
 
   def error(msg)
     @logs.each { |g| g.error(msg) }
+  end
+
+  def error?
+    @logs.any?(&:error?)
   end
 end
