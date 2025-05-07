@@ -30,3 +30,4 @@ Layout/ParameterAlignment:
   Enabled: false
 Style/ClassAndModuleChildren:
   Enabled: false
+require: []
