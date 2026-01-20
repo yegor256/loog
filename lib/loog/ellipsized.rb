@@ -26,7 +26,7 @@ class Loog::Ellipsized
   end
 
   def debug(msg)
-    @log.debug(msg.ellipsized(@width))
+    @log.debug(squeezed(msg).ellipsized(@width))
   end
 
   def debug?
@@ -34,7 +34,7 @@ class Loog::Ellipsized
   end
 
   def info(msg)
-    @log.info(msg.ellipsized(@width))
+    @log.info(squeezed(msg).ellipsized(@width))
   end
 
   def info?
@@ -42,7 +42,7 @@ class Loog::Ellipsized
   end
 
   def warn(msg)
-    @log.warn(msg.ellipsized(@width))
+    @log.warn(squeezed(msg).ellipsized(@width))
   end
 
   def warn?
@@ -50,10 +50,16 @@ class Loog::Ellipsized
   end
 
   def error(msg)
-    @log.error(msg.ellipsized(@width))
+    @log.error(squeezed(msg).ellipsized(@width))
   end
 
   def error?
     @log.error?
+  end
+
+  private
+
+  def squeezed(msg)
+    msg.gsub(/\s+/, ' ')
   end
 end

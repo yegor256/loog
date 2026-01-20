@@ -68,4 +68,11 @@ class EllipsizedTest < Minitest::Test
     log = Loog::Ellipsized.new(Loog::VERBOSE)
     assert_predicate(log, :error?, 'error query not delegated')
   end
+
+  def test_squeezes_whitespace_and_newlines
+    buf = Loog::Buffer.new
+    log = Loog::Ellipsized.new(buf, 1000)
+    log.info("привет\n\t  мир   #{SecureRandom.hex(4)}")
+    refute_match(/\s{2,}/, buf.to_s, 'whitespace was not squeezed into single spaces')
+  end
 end
