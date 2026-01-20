@@ -47,6 +47,16 @@ loog.info('Hello, world!')
 assert(buf.to_s.include?('Hello'))
 ```
 
+You can also truncate long messages with `Loog::Ellipsized`:
+
+```ruby
+require 'loog'
+require 'loog/ellipsized'
+loog = Loog::Ellipsized.new(Loog::VERBOSE, 20)
+loog.info('This is a very long message that will be truncated')
+# prints: "This is...truncated"
+```
+
 ## How to contribute
 
 Read
