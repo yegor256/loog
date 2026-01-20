@@ -75,4 +75,11 @@ class EllipsizedTest < Minitest::Test
     log.info("привет\n\t  мир   #{SecureRandom.hex(4)}")
     refute_match(/\s{2,}/, buf.to_s, 'whitespace was not squeezed into single spaces')
   end
+
+  def test_trims_leading_and_trailing_whitespace
+    buf = Loog::Buffer.new
+    log = Loog::Ellipsized.new(buf, 1000)
+    log.info("  \n\tсообщение#{SecureRandom.hex(4)}  \t\n")
+    refute_match(/^\s|\s$/, buf.to_s.chomp, 'leading or trailing whitespace was not trimmed')
+  end
 end
