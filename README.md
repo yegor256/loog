@@ -57,6 +57,19 @@ loog.info('This is a very long message that will be truncated')
 # prints: "This is...truncated"
 ```
 
+You can add ANSI colors to log messages with `Loog::Colorful`,
+which prints debug messages in dark gray, warnings in orange,
+and errors in red:
+
+```ruby
+require 'loog'
+require 'loog/colorful'
+loog = Loog::Colorful.new(Loog::VERBOSE)
+loog.debug('This is dark gray')
+loog.warn('This is orange')
+loog.error('This is red')
+```
+
 ## How to contribute
 
 Read
