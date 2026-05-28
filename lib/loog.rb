@@ -19,54 +19,50 @@ require 'time'
 # Copyright:: Copyright (c) 2018-2026 Yegor Bugayenko
 # License:: MIT
 module Loog
-  # Compact formatter
-  COMPACT = proc do |severity, _time, _target, msg|
-    prefix = ''
-    case severity
-    when 'ERROR', 'FATAL'
-      prefix = 'E: '
-    when 'DEBUG'
-      prefix = 'D: '
+  COMPACT =
+    proc do |severity, _time, _target, msg|
+      prefix = ''
+      case severity
+      when 'ERROR', 'FATAL'
+        prefix = 'E: '
+      when 'DEBUG'
+        prefix = 'D: '
+      end
+      message = msg.to_s.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
+      "#{prefix}#{message.rstrip.gsub("\n", "\n#{' ' * prefix.length}")}\n"
     end
-    message = msg.to_s.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
-    "#{prefix}#{message.rstrip.gsub("\n", "\n#{' ' * prefix.length}")}\n"
-  end
 
-  # Short formatter
-  SHORT = proc do |_severity, _time, _target, msg|
-    message = msg.to_s.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
-    "#{message.rstrip}\n"
-  end
+  SHORT =
+    proc do |_severity, _time, _target, msg|
+      message = msg.to_s.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
+      "#{message.rstrip}\n"
+    end
 
-  # Full formatter
-  FULL = proc do |severity, time, _target, msg|
-    message = msg.to_s.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
-    format(
-      "%<time>s %<severity>5s %<msg>s\n",
-      time: time.utc.iso8601,
-      severity: severity,
-      msg: message.rstrip
-    )
-  end
+  FULL =
+    proc do |severity, time, _target, msg|
+      message = msg.to_s.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
+      format(
+        "%<time>s %<severity>5s %<msg>s\n",
+        time: time.utc.iso8601,
+        severity: severity,
+        msg: message.rstrip
+      )
+    end
 
-  # No logging at all
   NULL = Logger.new($stdout)
   NULL.level = Logger::UNKNOWN
   NULL.freeze
 
-  # Everything, including debug
   VERBOSE = Logger.new($stdout)
   VERBOSE.level = Logger::DEBUG
   VERBOSE.formatter = COMPACT
   VERBOSE.freeze
 
-  # Info and errors, no debug info
   REGULAR = Logger.new($stdout)
   REGULAR.level = Logger::INFO
   REGULAR.formatter = COMPACT
   REGULAR.freeze
 
-  # Errors only
   ERRORS = Logger.new($stdout)
   ERRORS.level = Logger::ERROR
   ERRORS.formatter = COMPACT

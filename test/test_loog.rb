@@ -40,22 +40,20 @@ class LoogTest < Minitest::Test
 
   def test_buffer_non_utf
     b = Loog::Buffer.new
-    msg = [0x41, 0x42, 0xC0].pack('c*')
     b.debug('привет')
-    b.debug(msg)
+    b.debug([0x41, 0x42, 0xC0].pack('c*'))
     stdout = b.to_s
     assert_includes(stdout, 'AB', stdout)
   end
 
-  def test_handles_invalid_utf8_without_exception
+  def test_handles_invalid_utf_without_exception
     broken = "\xFF\xFE\x12"
     Loog::VERBOSE.info(broken)
     Loog::REGULAR.info(broken)
     Loog::ERRORS.error(broken)
     b = Loog::Buffer.new
     b.info(broken)
-    output = b.to_s
-    assert_match(/\?+/, output)
+    assert_match(/\?+/, b.to_s)
     b = Loog::Buffer.new(formatter: Loog::FULL)
     b.info(broken)
     assert_match(/\?+/, b.to_s)
