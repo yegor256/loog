@@ -14,7 +14,7 @@ GEM
     docile (1.4.1)
     drb (2.2.3)
     ellipsized (0.3.0)
-    erb (6.0.4)
+    erb (6.0.7)
     json (2.21.2)
     language_server-protocol (3.17.0.6)
     lint_roller (1.1.0)
@@ -35,11 +35,11 @@ GEM
     racc (1.8.1)
     rainbow (3.1.1)
     rake (13.4.2)
-    rbs (4.0.3)
+    rbs (4.2.0)
       logger
       prism (>= 1.6.0)
       tsort
-    rdoc (8.0.0)
+    rdoc (8.1.0)
       erb
       prism (>= 1.6.0)
       rbs (>= 4.0.0)
