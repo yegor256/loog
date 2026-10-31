@@ -60,6 +60,6 @@ class Loog::Ellipsized
   private
 
   def squeezed(msg)
-    msg.gsub(/\s+/, ' ').strip
+    msg.to_s.gsub(/\s+/, ' ').strip
   end
 end
