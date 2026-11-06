@@ -56,4 +56,12 @@ class Loog::Colorful
   def error?
     @log.error?
   end
+
+  def fatal(msg)
+    @log.fatal("\e[31m#{msg}\e[0m")
+  end
+
+  def fatal?
+    @log.fatal?
+  end
 end
