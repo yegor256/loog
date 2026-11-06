@@ -54,4 +54,12 @@ class Loog::Tee
   def error?
     @logs.any?(&:error?)
   end
+
+  def fatal(msg)
+    @logs.each { |g| g.fatal(msg) }
+  end
+
+  def fatal?
+    @logs.any?(&:fatal?)
+  end
 end
