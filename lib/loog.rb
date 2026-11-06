@@ -49,7 +49,7 @@ module Loog
       )
     end
 
-  NULL = Logger.new($stdout)
+  NULL = Logger.new(File::NULL)
   NULL.level = Logger::UNKNOWN
   NULL.freeze
 
