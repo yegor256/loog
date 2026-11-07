@@ -154,4 +154,10 @@ class EllipsizedTest < Minitest::Test
     Loog::Ellipsized.new(buf, 12).error(RuntimeError.new("#{SecureRandom.hex(8)}_extra_long_error"))
     assert_includes(buf.to_s, '...', 'long exception message was not ellipsized')
   end
+
+  def test_handles_invalid_utf_without_exception
+    buf = Loog::Buffer.new
+    Loog::Ellipsized.new(buf, 1000).info("caf\xE9 au lait #{SecureRandom.hex(4)}")
+    assert_match(/caf\? au lait/, buf.to_s, 'invalid UTF-8 was not replaced with question marks')
+  end
 end
