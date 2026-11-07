@@ -60,6 +60,6 @@ class Loog::Ellipsized
   private
 
   def squeezed(msg)
-    msg.to_s.gsub(/\s+/, ' ').strip
+    msg.to_s.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?').gsub(/\s+/, ' ').strip
   end
 end
