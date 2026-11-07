@@ -57,6 +57,14 @@ class Loog::Ellipsized
     @log.error?
   end
 
+  def fatal(msg)
+    @log.fatal(squeezed(msg).ellipsized(@width))
+  end
+
+  def fatal?
+    @log.fatal?
+  end
+
   private
 
   def squeezed(msg)
