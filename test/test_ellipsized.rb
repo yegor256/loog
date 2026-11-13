@@ -154,4 +154,21 @@ class EllipsizedTest < Minitest::Test
     Loog::Ellipsized.new(buf, 12).error(RuntimeError.new("#{SecureRandom.hex(8)}_extra_long_error"))
     assert_includes(buf.to_s, '...', 'long exception message was not ellipsized')
   end
+
+  def test_ellipsizes_fatal_message
+    buf = Loog::Buffer.new
+    Loog::Ellipsized.new(buf, 10).fatal("#{SecureRandom.hex(8)}фатальная ошибка")
+    assert_includes(buf.to_s, '...', 'message was not ellipsized')
+  end
+
+  def test_keeps_short_fatal_message_intact
+    buf = Loog::Buffer.new
+    msg = SecureRandom.hex(4)
+    Loog::Ellipsized.new(buf, 100).fatal(msg)
+    assert_includes(buf.to_s, msg, 'short fatal message was modified')
+  end
+
+  def test_delegates_fatal_query
+    assert_predicate(Loog::Ellipsized.new(Loog::VERBOSE), :fatal?, 'fatal query not delegated')
+  end
 end
