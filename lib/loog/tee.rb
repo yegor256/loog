@@ -23,32 +23,32 @@ class Loog::Tee
     @logs = logs
   end
 
-  def debug(msg)
-    @logs.each { |g| g.debug(msg) }
+  def debug(msg = nil, &block)
+    @logs.each { |g| g.debug(msg, &block) }
   end
 
   def debug?
     @logs.any?(&:debug?)
   end
 
-  def info(msg)
-    @logs.each { |g| g.info(msg) }
+  def info(msg = nil, &block)
+    @logs.each { |g| g.info(msg, &block) }
   end
 
   def info?
     @logs.any?(&:info?)
   end
 
-  def warn(msg)
-    @logs.each { |g| g.warn(msg) }
+  def warn(msg = nil, &block)
+    @logs.each { |g| g.warn(msg, &block) }
   end
 
   def warn?
     @logs.any?(&:warn?)
   end
 
-  def error(msg)
-    @logs.each { |g| g.error(msg) }
+  def error(msg = nil, &block)
+    @logs.each { |g| g.error(msg, &block) }
   end
 
   def error?
