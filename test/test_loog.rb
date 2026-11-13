@@ -58,4 +58,56 @@ class LoogTest < Minitest::Test
     b.info(broken)
     assert_match(/\?+/, b.to_s)
   end
+
+  def test_compact_keeps_exception_details
+    error = KeyError.new('key not found: :foo')
+    error.set_backtrace(['lib/loog.rb:42'])
+    b = Loog::Buffer.new(formatter: Loog::COMPACT)
+    b.error(error)
+    out = b.to_s
+    assert_includes(out, 'E: key not found: :foo (KeyError)', out)
+    assert_includes(out, 'lib/loog.rb:42', out)
+  end
+
+  def test_short_keeps_exception_details
+    error = KeyError.new('key not found: :foo')
+    error.set_backtrace(['lib/loog.rb:42'])
+    b = Loog::Buffer.new
+    b.error(error)
+    out = b.to_s
+    assert_includes(out, 'key not found: :foo (KeyError)', out)
+    assert_includes(out, 'lib/loog.rb:42', out)
+  end
+
+  def test_full_keeps_exception_details
+    error = KeyError.new('key not found: :foo')
+    error.set_backtrace(['lib/loog.rb:42'])
+    b = Loog::Buffer.new(formatter: Loog::FULL)
+    b.error(error)
+    out = b.to_s
+    assert_includes(out, 'key not found: :foo (KeyError)', out)
+    assert_includes(out, 'lib/loog.rb:42', out)
+  end
+
+  def test_backtrace_of_raised_exception
+    b = Loog::Buffer.new
+    b.error(the_error)
+    out = b.to_s
+    assert_includes(out, 'key not found: :foo (KeyError)', out)
+    assert_includes(out, 'test_loog.rb', out)
+  end
+
+  def test_exception_without_backtrace
+    b = Loog::Buffer.new
+    b.error(KeyError.new('no backtrace here'))
+    assert_includes(b.to_s, 'no backtrace here (KeyError)', b.to_s)
+  end
+
+  private
+
+  def the_error
+    raise(KeyError, 'key not found: :foo')
+  rescue KeyError => e
+    e
+  end
 end

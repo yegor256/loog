@@ -19,6 +19,19 @@ require 'time'
 # Copyright:: Copyright (c) 2018-2026 Yegor Bugayenko
 # License:: MIT
 module Loog
+  TO_TEXT =
+    lambda do |msg|
+      text =
+        case msg
+        when Exception
+          "#{msg.message} (#{msg.class})\n#{(msg.backtrace || []).join("\n")}"
+        else
+          msg.to_s
+        end
+      text.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
+    end
+  private_constant :TO_TEXT
+
   COMPACT =
     proc do |severity, _time, _target, msg|
       prefix = ''
@@ -28,19 +41,19 @@ module Loog
       when 'DEBUG'
         prefix = 'D: '
       end
-      message = msg.to_s.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
+      message = TO_TEXT.call(msg)
       "#{prefix}#{message.rstrip.gsub("\n", "\n#{' ' * prefix.length}")}\n"
     end
 
   SHORT =
     proc do |_severity, _time, _target, msg|
-      message = msg.to_s.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
+      message = TO_TEXT.call(msg)
       "#{message.rstrip}\n"
     end
 
   FULL =
     proc do |severity, time, _target, msg|
-      message = msg.to_s.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
+      message = TO_TEXT.call(msg)
       format(
         "%<time>s %<severity>5s %<msg>s\n",
         time: time.utc.iso8601,
