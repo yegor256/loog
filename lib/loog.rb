@@ -88,6 +88,11 @@ module Loog
       @lines = []
     end
 
+    def <<(msg)
+      @lines.push(msg.to_s)
+      self
+    end
+
     def to_s
       @lines.map { |s| s.dup.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?') }.join
     end

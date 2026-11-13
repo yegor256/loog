@@ -38,6 +38,15 @@ class LoogTest < Minitest::Test
     assert_equal("Hey, друг!\nBye!\n+\n", b.to_s)
   end
 
+  def test_buffer_shovel
+    buf = nil
+    assert_silent do
+      buf = Loog::Buffer.new
+      buf << 'Hey, shovel!'
+    end
+    assert_equal('Hey, shovel!', buf.to_s)
+  end
+
   def test_buffer_non_utf
     b = Loog::Buffer.new
     b.debug('привет')
