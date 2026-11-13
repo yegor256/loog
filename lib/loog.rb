@@ -77,19 +77,20 @@ module Loog
     # @param [String] level The level of logging
     # @param [String] formatter The formatter
     def initialize(level: Logger::DEBUG, formatter: Loog::SHORT)
-      super(
-        $stdout,
-        level: level,
-        formatter: proc do |severity, time, target, msg|
-          @lines.push(formatter.call(severity, time, target, msg))
-          ''
-        end
-      )
+      super($stdout, level: level, formatter: formatter)
       @lines = []
     end
 
     def to_s
       @lines.map { |s| s.dup.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?') }.join
+    end
+
+    private
+
+    # rubocop:disable-next Elegant/GoodMethodName
+    def format_message(severity, time, progname, msg)
+      @lines.push(super)
+      ''
     end
   end
 end

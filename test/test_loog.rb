@@ -46,6 +46,24 @@ class LoogTest < Minitest::Test
     assert_includes(stdout, 'AB', stdout)
   end
 
+  def test_buffer_keeps_capturing_after_formatter_set
+    b = Loog::Buffer.new
+    b.info('before switch')
+    assert_silent do
+      b.formatter = Loog::FULL
+      b.info('after switch')
+    end
+    assert_includes(b.to_s, 'before switch')
+    assert_includes(b.to_s, 'after switch')
+  end
+
+  def test_custom_formatter_applied_after_assignment
+    b = Loog::Buffer.new
+    b.formatter = Loog::FULL
+    b.info('hey, custom')
+    assert_match(/INFO\s+hey, custom/, b.to_s)
+  end
+
   def test_handles_invalid_utf_without_exception
     broken = "\xFF\xFE\x12"
     Loog::VERBOSE.info(broken)
