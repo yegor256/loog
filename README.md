@@ -54,7 +54,7 @@ require 'loog'
 require 'loog/ellipsized'
 loog = Loog::Ellipsized.new(Loog::VERBOSE, 20)
 loog.info('This is a very long message that will be truncated')
-# prints: "This is...truncated"
+# prints: "This is a...runcated"
 ```
 
 You can add ANSI colors to log messages with `Loog::Colorful`,
