@@ -19,4 +19,17 @@ class TeeTest < Minitest::Test
     tee.warn('Works?')
     tee.error('Works?')
   end
+
+  def test_block_form_of_logging
+    first = Loog::Buffer.new
+    second = Loog::Buffer.new
+    tee = Loog::Tee.new(first, second)
+    tee.debug { 'debug message' }
+    tee.info { 'info message' }
+    tee.warn { 'warn message' }
+    tee.error { 'error message' }
+    expected = "debug message\ninfo message\nwarn message\nerror message\n"
+    assert_equal(expected, first.to_s)
+    assert_equal(expected, second.to_s)
+  end
 end
