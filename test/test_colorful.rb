@@ -103,4 +103,27 @@ class ColorfulTest < Minitest::Test
     Loog::Colorful.new(buf).error("#{SecureRandom.hex(4)}ошибка世界")
     assert_includes(buf.to_s, "\e[31m", 'non-ascii error was not colored red')
   end
+
+  def test_colors_fatal_message_red
+    buf = Loog::Buffer.new
+    Loog::Colorful.new(buf).fatal(SecureRandom.hex(8))
+    assert_includes(buf.to_s, "\e[31m", 'fatal message was not colored red')
+  end
+
+  def test_resets_color_after_fatal
+    buf = Loog::Buffer.new
+    Loog::Colorful.new(buf).fatal(SecureRandom.hex(8))
+    assert_includes(buf.to_s, "\e[0m", 'color was not reset after fatal message')
+  end
+
+  def test_preserves_fatal_message_content
+    buf = Loog::Buffer.new
+    msg = SecureRandom.hex(8)
+    Loog::Colorful.new(buf).fatal(msg)
+    assert_includes(buf.to_s, msg, 'fatal message content was lost')
+  end
+
+  def test_delegates_fatal_query
+    assert_predicate(Loog::Colorful.new(Loog::VERBOSE), :fatal?, 'fatal query not delegated')
+  end
 end

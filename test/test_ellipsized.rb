@@ -157,7 +157,24 @@ class EllipsizedTest < Minitest::Test
 
   def test_handles_invalid_utf_without_exception
     buf = Loog::Buffer.new
-    Loog::Ellipsized.new(buf, 1000).info("caf\xE9 au lait #{SecureRandom.hex(4)}")
-    assert_match(/caf\? au lait/, buf.to_s, 'invalid UTF-8 was not replaced with question marks')
+    Loog::Ellipsized.new(buf, 1000).info("cafe\xE9 au lait #{SecureRandom.hex(4)}")
+    assert_match(/cafe\? au lait/, buf.to_s, 'invalid UTF-8 was not replaced with question marks')
+  end
+
+  def test_ellipsizes_fatal_message
+    buf = Loog::Buffer.new
+    Loog::Ellipsized.new(buf, 10).fatal("#{SecureRandom.hex(8)}фатальная ошибка")
+    assert_includes(buf.to_s, '...', 'message was not ellipsized')
+  end
+
+  def test_keeps_short_fatal_message_intact
+    buf = Loog::Buffer.new
+    msg = SecureRandom.hex(4)
+    Loog::Ellipsized.new(buf, 100).fatal(msg)
+    assert_includes(buf.to_s, msg, 'short fatal message was modified')
+  end
+
+  def test_delegates_fatal_query
+    assert_predicate(Loog::Ellipsized.new(Loog::VERBOSE), :fatal?, 'fatal query not delegated')
   end
 end
