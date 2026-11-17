@@ -157,7 +157,7 @@ class EllipsizedTest < Minitest::Test
 
   def test_handles_invalid_utf_without_exception
     buf = Loog::Buffer.new
-    Loog::Ellipsized.new(buf, 1000).info("caf\xE9 au lait #{SecureRandom.hex(4)}")
-    assert_match(/caf\? au lait/, buf.to_s, 'invalid UTF-8 was not replaced with question marks')
+    Loog::Ellipsized.new(buf, 1000).info("coffee\xE9 au lait #{SecureRandom.hex(4)}")
+    assert_match(/coffee\? au lait/, buf.to_s, 'invalid UTF-8 was not replaced with question marks')
   end
 end
