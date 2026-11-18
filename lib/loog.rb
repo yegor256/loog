@@ -105,8 +105,8 @@ module Loog
 
     private
 
-    def format_message(severity, time, progname, msg)
-      @lines.push(super)
+    define_method(:format_message) do |sev, time, progname, msg|
+      @lines.push(super(sev, time, progname, msg))
       ''
     end
   end
