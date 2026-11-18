@@ -76,6 +76,24 @@ class ColorfulTest < Minitest::Test
     assert_includes(buf.to_s, msg, 'warn message content was lost')
   end
 
+  def test_debug_strips_trailing_newline
+    buf = Loog::Buffer.new
+    Loog::Colorful.new(buf).debug("hello\n")
+    refute_includes(buf.to_s, "\n\n", 'extra blank line printed for debug message ending with newline')
+  end
+
+  def test_warn_strips_trailing_newline
+    buf = Loog::Buffer.new
+    Loog::Colorful.new(buf).warn("hello\n")
+    refute_includes(buf.to_s, "\n\n", 'extra blank line printed for warn message ending with newline')
+  end
+
+  def test_error_strips_trailing_newline
+    buf = Loog::Buffer.new
+    Loog::Colorful.new(buf).error("hello\n")
+    refute_includes(buf.to_s, "\n\n", 'extra blank line printed for error message ending with newline')
+  end
+
   def test_delegates_debug_query
     assert_predicate(Loog::Colorful.new(Loog::VERBOSE), :debug?, 'debug query not delegated')
   end
