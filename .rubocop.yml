@@ -36,4 +36,7 @@ Elegant/NoClassInModule:
     - 'lib/**/*'
     - '**/test_*.rb'
     - '**/*Test.rb'
+Elegant/GoodMethodName:
+  AllowedNames:
+    - format_message
 require: []
