@@ -26,7 +26,7 @@ class Loog::Colorful
   end
 
   def debug(msg)
-    @log.debug("\e[90m#{msg}\e[0m")
+    @log.debug("\e[90m#{msg.to_s.rstrip}\e[0m")
   end
 
   def debug?
@@ -42,7 +42,7 @@ class Loog::Colorful
   end
 
   def warn(msg)
-    @log.warn("\e[33m#{msg}\e[0m")
+    @log.warn("\e[33m#{msg.to_s.rstrip}\e[0m")
   end
 
   def warn?
@@ -50,7 +50,7 @@ class Loog::Colorful
   end
 
   def error(msg)
-    @log.error("\e[31m#{msg}\e[0m")
+    @log.error("\e[31m#{msg.to_s.rstrip}\e[0m")
   end
 
   def error?
