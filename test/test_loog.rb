@@ -68,6 +68,31 @@ class LoogTest < Minitest::Test
     assert_match(/\?+/, b.to_s)
   end
 
+  def test_buffer_keeps_valid_utf_from_binary_string
+    b = Loog::Buffer.new
+    b.info('café'.b)
+    assert_includes(b.to_s, 'café')
+  end
+
+  def test_formatters_keep_binary_utf
+    msg = 'тест для журнала'.b
+    [Loog::COMPACT, Loog::SHORT, Loog::FULL].each do |formatter|
+      assert_includes(formatter.call('INFO', Time.now, nil, msg), 'тест для журнала')
+    end
+  end
+
+  def test_binary_invalid_utf_becomes_question_marks
+    b = Loog::Buffer.new
+    b.info([0x63, 0x61, 0x66, 0xE9].pack('c*'))
+    assert_equal("caf?\n", b.to_s)
+  end
+
+  def test_explicit_latin_encoding_is_transcoded
+    b = Loog::Buffer.new
+    b.info('café'.encode(Encoding::ISO_8859_1))
+    assert_includes(b.to_s, 'café')
+  end
+
   def test_compact_keeps_exception_details
     error = KeyError.new('key not found: :foo')
     error.set_backtrace(['lib/loog.rb:42'])
