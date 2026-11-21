@@ -38,6 +38,16 @@ class LoogTest < Minitest::Test
     assert_equal("Hey, друг!\nBye!\n+\n", b.to_s)
   end
 
+  def test_buffer_survives_formatter_reassign
+    buf = Loog::Buffer.new
+    buf.info('before')
+    buf.formatter = Loog::FULL
+    buf.info('after')
+    out = buf.to_s
+    assert_includes(out, 'before', out)
+    assert_includes(out, 'after', out)
+  end
+
   def test_buffer_shovel
     buf = nil
     assert_silent do
