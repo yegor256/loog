@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: MIT
 
 require 'minitest/autorun'
+require 'tempfile'
 require_relative '../lib/loog'
 
 # Loog test.
@@ -17,6 +18,18 @@ class LoogTest < Minitest::Test
 
   def test_null_logging
     Loog::NULL.info('Should not be visible')
+  end
+
+  def test_null_unknown_prints_nothing
+    silently { Loog::NULL.unknown('Should not be visible') }
+  end
+
+  def test_null_add_without_severity_prints_nothing
+    silently { Loog::NULL.add(nil, 'Should not be visible') }
+  end
+
+  def test_null_shovel_prints_nothing
+    silently { Loog::NULL << "Should not be visible\n" }
   end
 
   def test_buffering
@@ -118,5 +131,19 @@ class LoogTest < Minitest::Test
     raise(KeyError, 'key not found: :foo')
   rescue KeyError => e
     e
+  end
+
+  def silently
+    file = Tempfile.new('loog')
+    stdout = $stdout.dup
+    $stdout.reopen(file)
+    yield
+  ensure
+    $stdout.flush
+    $stdout.reopen(stdout)
+    stdout.close
+    assert_empty(File.read(file.path))
+    file.close
+    file.unlink
   end
 end
