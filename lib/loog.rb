@@ -19,6 +19,16 @@ require 'time'
 # Copyright:: Copyright (c) 2018-2026 Yegor Bugayenko
 # License:: MIT
 module Loog
+  TO_UTF8 =
+    lambda do |text|
+      if text.encoding == Encoding::ASCII_8BIT
+        text.dup.force_encoding('UTF-8').scrub('?')
+      else
+        text.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
+      end
+    end
+  private_constant :TO_UTF8
+
   TO_TEXT =
     lambda do |msg|
       text =
@@ -28,7 +38,7 @@ module Loog
         else
           msg.to_s
         end
-      text.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
+      TO_UTF8.call(text)
     end
   private_constant :TO_TEXT
 
@@ -107,7 +117,7 @@ module Loog
     end
 
     def to_s
-      @lines.map { |s| s.dup.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?') }.join
+      @lines.map { |s| TO_UTF8.call(s) }.join
     end
   end
 end
